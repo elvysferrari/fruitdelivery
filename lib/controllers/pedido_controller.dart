@@ -12,7 +12,7 @@ class PedidoController extends GetxController {
     firebaseFirestore.collection("pedidos").add(pedido.toJson());
   }
 
-  Stream<List<PedidoModel>> listarPedidos(String cliente) =>
+  Stream<List<PedidoModel>> listarPedidos({String cliente = "Cliente"}) =>
       firebaseFirestore.collection("pedidos").where('cliente', isEqualTo: cliente).snapshots().map((query) =>
           query.docs.map((item) => PedidoModel.fromMap(item.data())).toList());
 

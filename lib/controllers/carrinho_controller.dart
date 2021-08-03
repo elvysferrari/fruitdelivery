@@ -30,13 +30,14 @@ class CarrinhoController extends GetxController {
       _itensCarrinho.value.add(item);
       atualizarValorTotal();
       _itensCarrinho.refresh();
+      Get.snackbar("${produto.nome}", "Adicionado no carrinho");
     }
   }
 
   void removerItem(CarrinhoItemModel itemCarrinho){
       itensCarrinho.forEach((item) {
         if(item.nome == itemCarrinho.nome){
-          itensCarrinho.remove(item);
+          _itensCarrinho.value.remove(item);
         }
       });
   }
@@ -62,6 +63,7 @@ class CarrinhoController extends GetxController {
 
   void diminuirQuantidade(CarrinhoItemModel itemCarrinho){
     if(itemCarrinho.quantidade == 1){
+      removerItem(itemCarrinho);
       _itensCarrinho.refresh();
     }else{
       itemCarrinho.quantidade--;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruta_delivery_app/constants/controllers.dart';
 import 'package:fruta_delivery_app/models/produto_model.dart';
 import 'package:fruta_delivery_app/widgets/texto_padrao.dart';
+import 'package:get/get.dart';
 
 class ProdutoWidget extends StatelessWidget {
   final ProdutoModel produto;
@@ -34,18 +35,6 @@ class ProdutoWidget extends StatelessWidget {
                       produto.imagem!,
                       width: double.infinity,
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 4),
-                        child: Text(
-                            'Em estoque: ${produto.quantidadeEstoque} kg',
-                          style: TextStyle(
-
-                          ),
-                        ),
-                      ),
-                    ),
                   ]
                 ),
                 ),
@@ -60,11 +49,24 @@ class ProdutoWidget extends StatelessWidget {
             color: Colors.grey,
           ),
           SizedBox(
-            height: 16,
+            height: 8,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Align(
+                alignment: Alignment.topCenter,
+                  child: Text(
+                    'Em estoque: ${produto.quantidadeEstoque} kg',
+                    style: TextStyle(
+                      fontSize: 12
+                    ),
+                  ),
+
+              ),
+              SizedBox(
+                height: 6,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: TextoPadrao(
@@ -75,8 +77,11 @@ class ProdutoWidget extends StatelessWidget {
               ),
               IconButton(
                   icon: Icon(Icons.add_shopping_cart, size: 30, color: Colors.green,),
+                  disabledColor: Colors.grey,
                   onPressed: () {
-                    carrinhoController.adicionarItem(produto);
+                    produto.quantidadeEstoque > 0 ?
+                    carrinhoController.adicionarItem(produto)
+                    : Get.snackbar("${produto.nome}", "Sem estoque");;
                   })
             ],
           ),

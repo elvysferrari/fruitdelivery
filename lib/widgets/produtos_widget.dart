@@ -14,11 +14,11 @@ class _ProdutosWidgetState extends State<ProdutosWidget> {
   Widget build(BuildContext context) {
     return Obx(()=>GridView.count(
         crossAxisCount: 2,
-        childAspectRatio: .63,
+        childAspectRatio: .60,
         padding: const EdgeInsets.all(10),
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 10,
-        children: produtoController.produtos.map((ProdutoModel produto) {
+        children: produtoController.produtosFiltrados.map((ProdutoModel produto) {
           return ProdutoWidget(produto: produto,);
         }).toList()));
   }
